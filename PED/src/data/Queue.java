@@ -1,5 +1,9 @@
+<<<<<<< HEAD:PED/src/Data/Queue.java
 package Data;
 //import javax.swing.JOptionPane;
+=======
+package data;
+>>>>>>> 1d481a589493dfd120f81e4a840c1a04c6e54c86:PED/src/data/Queue.java
 
 public class Queue {
 
