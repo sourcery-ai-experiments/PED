@@ -5,7 +5,7 @@ package Data;
 public class Node {
     private Tiquete data;
     private Node next;
-    // Remove commented-out code
+    
 
     public Node() {
         this.data = null;
