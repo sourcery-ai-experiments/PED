@@ -1,5 +1,5 @@
 
-import Data.SQLite_DBManager;
+import data.SQLite_DBManager;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -20,7 +20,9 @@ public class PED {
         
         
         SQLite_DBManager dBManager = new SQLite_DBManager();
-        dBManager.connect("BASEDEDATOSDEPRUEBA");
+        dBManager.connectDB("BankOfAmerica.pedData");
+
+        
     }
     
 }
