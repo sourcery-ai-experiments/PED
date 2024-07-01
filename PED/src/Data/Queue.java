@@ -1,5 +1,6 @@
 package Data;
 
+
 public class Queue {
 
     private Node head;
@@ -29,7 +30,7 @@ public class Queue {
     }
     
     //Encolar es lo mismo que agregar
-    public void addNode(Data pData){
+    public void addNode(Tiquete pData){
         Node nuevo = new Node(pData);
         if(isEmpty()){
             head=last=nuevo;
@@ -61,7 +62,7 @@ public class Queue {
         Node aux = head;
 
         while (aux != null) {
-            if (x == aux.getData().getValue()) {
+            if (x == aux.getData().getId()) {
                 System.out.println("El Valor " + x + " si se encuentra en la pila");
                 return true;
             }
@@ -74,14 +75,14 @@ public class Queue {
     
     public Node extractNode(int x) {
         Node r = null;
-        if(x==this.head.getData().getValue()){
+        if(x==this.head.getData().getId()){
             r=head;
             this.processNode();
             r.setNext(null);
         }else{
             Node aux = head;
             while(aux.getNext()!=null){
-                if(aux.getNext().getData().getValue()==x){
+                if(aux.getNext().getData().getId()==x){
                     r=aux.getNext();
                     aux.setNext(aux.getNext().getNext());
                     r.setNext(null);
@@ -97,7 +98,7 @@ public class Queue {
         Node r = head;
         Node aux = this.head;
         while(aux!=null){
-            if(r.getData().getValue()<aux.getData().getValue()){
+            if(r.getData().getId()<aux.getData().getId()){
                 r=aux;
             }
             aux=aux.getNext();
@@ -111,7 +112,7 @@ public class Queue {
         Queue temp = new Queue();
         while(head!=null){
             temp.addNode(this.getBiggest().getData());
-            this.extractNode(this.getBiggest().getData().getValue());
+            this.extractNode(this.getBiggest().getData().getId());
         }
         this.head= temp.getHead();
         this.last= temp.getLast();   

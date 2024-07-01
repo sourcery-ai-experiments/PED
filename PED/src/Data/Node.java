@@ -1,27 +1,27 @@
 package Data;
 
-import javax.xml.crypto.Data;
+
 
 public class Node {
-    private Data data;
+    private Tiquete data;
     private Node next;
-    private Object data;
+    //private Object data;
 
     public Node() {
         this.data = null;
         next = null;
     }
     
-    public Node(Data dato) {
+    public Node(Tiquete dato) {
         this.data = dato;
         next = null;
     }
 
-    public Data getData() {
+    public Tiquete getData() {
         return data;
     }
 
-    public void setDato(Data data) {
+    public void setDato(Tiquete data) {
         this.data = data;
     }
 
