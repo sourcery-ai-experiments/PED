@@ -112,7 +112,12 @@ public class Queue {
         Queue temp = new Queue();
         while(head!=null){
             temp.addNode(this.getBiggest().getData());
-            this.extractNode(this.getBiggest().getData().getId());
+         while(head!=null){
+             temp.addNode(this.getBiggest().getData());
+             var biggestData = this.getBiggest().getData();
+             this.extractNode(biggestData.getId());
+         }
+         this.head= temp.getHead();
         }
         this.head= temp.getHead();
         this.last= temp.getLast();   
