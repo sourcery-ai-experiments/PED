@@ -5,7 +5,7 @@ package Data;
 public class Node {
     private Tiquete data;
     private Node next;
-    
+    //Comentario
 
     public Node() {
         this.data = null;
