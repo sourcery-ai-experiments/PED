@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Data;
+package data;
 
 import java.io.File;
 import java.sql.Connection;
@@ -19,7 +19,7 @@ public class SQLite_DBManager {
     private Connection conn;
 
     // Método para conectar a la base de datos
-    public void connect(String dbName) {
+    public void connectDB(String dbName) {
         try {
             File dbFile = new File(dbName);
             boolean dbExists = dbFile.exists();
@@ -31,10 +31,47 @@ public class SQLite_DBManager {
 
             if (!dbExists) {
                 System.out.println("Base de datos no encontrada. Creando una nueva base de datos.");
-                //createDatabase();
-                createTable(new String[][]{
-                    {"ID", }
-                });
+                
+                // Define las columnas de la tabla Users
+                String[][] userColumns = {
+                    {"user_ID", "INTEGER", "PRIMARY KEY", "AUTOINCREMENT"},
+                    {"username", "TEXT"},
+                    {"name", "TEXT"},
+                    {"last_name", "TEXT"},
+                    {"user_type", "TEXT"},
+                    {"status", "TEXT"},
+                    {"last_login", "DATE"}
+                };
+                createTable(dbName, "ped_Users",userColumns);
+                
+                // Crea un Admin User por default para el sistema
+                String[][] tempUser = {
+                    {"username", "adminRoot"},
+                    {"name", "Admin"},
+                    {"last_name", "Root"},
+                    {"user_type", "Admin"},
+                    {"status", "Active"}
+                };
+                insertRow(dbName,"ped_Users",tempUser);
+                
+                
+                // Crea un User Cajero por default para el sistema
+                tempUser[0][1] = "manuel.mora";     // "username"
+                tempUser[1][1] = "Manuel";          // "name"
+                tempUser[2][1] = "Mora";            // "last_name"
+                tempUser[3][1] = "Cashier";         // "user_type"
+                tempUser[4][1] = "Active";          // "status"
+                insertRow(dbName,"ped_Users", tempUser);
+                
+                // Crea un User Dispensador de tiquetes por default para el sistema
+                tempUser[0][1] = "ticket.dispenser01";     // "username"
+                tempUser[1][1] = "Dispensador";          // "name"
+                tempUser[2][1] = "01";            // "last_name"
+                tempUser[3][1] = "TicketDispenser";         // "user_type"
+                tempUser[4][1] = "Active";          // "status"
+                insertRow(dbName,"ped_Users", tempUser);
+   
+                
             } else {
                 System.out.println("Conexión establecida a la base de datos existente.");
             }
@@ -43,26 +80,24 @@ public class SQLite_DBManager {
             
         }
     }
-
-    // Método para crear una nueva base de datos
-    private void createDatabase() {
-        try (Statement stmt = conn.createStatement()) {
-            // Puedes agregar sentencias SQL adicionales aquí para inicializar la base de datos
-            // Por ejemplo, crear una tabla inicial
-            String sql = "CREATE TABLE IF NOT EXISTS initial_table (" +
-                         "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                         "name TEXT NOT NULL)";
-            stmt.executeUpdate(sql);
-            System.out.println("Base de datos creada con una tabla inicial.");
+    
+    // Método para cerrar la conexión
+    public void closeDB() {
+        try {
+            if (conn != null) {
+                conn.close();
+                System.out.println("Conexión cerrada.");
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
     // Método para crear una tabla
-    public void createTable(String[][] columns) {
-    try (Statement stmt = conn.createStatement()) {
-        StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS my_table (");
+    public void createTable(String dbName, String tableName, String[][] columns) {
+        connectDB(dbName);
+        try (Statement stmt = conn.createStatement()) {
+        StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS " + tableName + " (");
         for (int i = 0; i < columns.length; i++) {
             sql.append(columns[i][0]).append(" ").append(columns[i][1]);
             for (int j = 2; j < columns[i].length; j++) {
@@ -78,10 +113,12 @@ public class SQLite_DBManager {
     } catch (SQLException e) {
         System.out.println(e.getMessage());
     }
+        closeDB();
 }
 
     // Método para agregar una línea a la tabla
-    public void insertRow(String tableName,String[][] values) {
+    public void insertRow(String dbName, String tableName, String[][] values) {
+        connectDB(tableName);
         try (Statement stmt = conn.createStatement()) {
             StringBuilder columns = new StringBuilder();
             StringBuilder vals = new StringBuilder();
@@ -98,10 +135,12 @@ public class SQLite_DBManager {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        closeDB();
     }
 
     // Método para borrar una línea de la tabla por ID
-    public void deleteRowById(String tableName,String id) {
+    public void deleteRowById(String dbName, String tableName, String id) {
+        connectDB(dbName);
         try (Statement stmt = conn.createStatement()) {
             int parsedId = Integer.parseInt(id);
             String sql = "DELETE FROM " + tableName + " WHERE id = " + parsedId;
@@ -110,12 +149,14 @@ public class SQLite_DBManager {
         } catch (SQLException | NumberFormatException e) {
             System.out.println(e.getMessage());
         }
+        closeDB();
     }
 
     // Método para leer todas las líneas de la tabla
-    public void readAllRows() {
+    public void readAllRows(String dbName, String tableName) {
+        connectDB(dbName);
         try (Statement stmt = conn.createStatement()) {
-            String sql = "SELECT * FROM my_table";
+            String sql = "SELECT * FROM " + tableName + "";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 System.out.println("ID: " + rs.getInt("id") + ", ");
@@ -128,13 +169,15 @@ public class SQLite_DBManager {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        closeDB();
     }
 
     // Método para leer una línea de la tabla por ID
-    public void readRowById(String id) {
+    public void readRowById(String dbName, String tableName, String id) {
+        connectDB(dbName);
         try (Statement stmt = conn.createStatement()) {
             int parsedId = Integer.parseInt(id);
-            String sql = "SELECT * FROM my_table WHERE id = " + parsedId;
+            String sql = "SELECT * FROM " + tableName + " WHERE id = " + parsedId;
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 System.out.print("ID: " + rs.getInt("id") + ", ");
@@ -149,6 +192,7 @@ public class SQLite_DBManager {
         } catch (SQLException | NumberFormatException e) {
             System.out.println(e.getMessage());
         }
+        closeDB();
     }
     
 }
