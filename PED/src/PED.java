@@ -1,4 +1,5 @@
 
+import data.App_Settings;
 import data.SQLite_DBManager;
 
 /*
@@ -16,13 +17,47 @@ public class PED {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        setLookAndFeel();
+        
+        App_Settings sysSettings = new App_Settings();
+        
+//        Thread t_statusBar = new Thread(new Runnable(){
+//            @Override
+//            public void run() {
+//                while (true) {                    
+//                    sysSettings.getSystemInfo();
+//                }
+//            }
+//        });
+        
         
         
         SQLite_DBManager dBManager = new SQLite_DBManager();
-        dBManager.connectDB("BankOfAmerica.pedData");
+        dBManager.connectDB("Bank_Of_America.ped");
 
         
     }
+    
+    public static void setLookAndFeel(){
+        
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(PED.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(PED.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(PED.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(PED.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
+    
     
 }
