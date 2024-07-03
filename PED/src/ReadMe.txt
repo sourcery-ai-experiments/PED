@@ -5,7 +5,7 @@
 Integrantes: 
 	* Manuel Mora Monge
 	* Eliver Salazar Campos
-	* 
+	* Javier Alvarado Jiménez
 	* Eithel Barrantes Dávila
 
 --------------------------------------
