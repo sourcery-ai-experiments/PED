@@ -19,7 +19,6 @@ public class SQLite_DBManager {
     private Connection conn;
     
     
-
     // Método para conectar a la base de datos
     public void connectDB(String dbName) {
         try {
