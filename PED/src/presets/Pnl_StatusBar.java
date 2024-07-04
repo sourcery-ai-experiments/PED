@@ -20,10 +20,19 @@ public class Pnl_StatusBar extends javax.swing.JPanel {
      * Creates new form Pnl_StatusBar
      */
     
+    QUITAR PARAMETRO DEL CONS, HACER METODO PARA INICIAR EL COMPONENTE
+    
+    
     private User currentUser;
     private JPanel selfPanel;
+    private App_Settings appSettings; 
     
-    public Pnl_StatusBar(App_Settings appSettings) {
+    public Pnl_StatusBar() {
+    }
+    
+    public void showPanel(App_Settings appSettings){
+        this.appSettings = appSettings;
+        
         initComponents();
         selfPanel = this;
         currentUser = appSettings.getCurrentUser();
@@ -54,10 +63,6 @@ public class Pnl_StatusBar extends javax.swing.JPanel {
                 
             }
         });
-        
-        
-        
-        
     }
 
     /**

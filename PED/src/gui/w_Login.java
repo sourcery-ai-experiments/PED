@@ -5,6 +5,7 @@
 package gui;
 
 import data.App_Settings;
+import java.awt.GridBagConstraints;
 import presets.Pnl_StatusBar;
 
 /**
@@ -18,6 +19,7 @@ public class w_Login extends javax.swing.JFrame {
      */
     
     private App_Settings appSettings;
+    private GridBagConstraints gbc;
     
     public w_Login(App_Settings appSettings) {
         
@@ -36,6 +38,7 @@ public class w_Login extends javax.swing.JFrame {
         
         
         
+        
     }
 
     /**
@@ -46,7 +49,8 @@ public class w_Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
+
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de registro");
@@ -58,11 +62,15 @@ public class w_Login extends javax.swing.JFrame {
         setType(java.awt.Window.Type.UTILITY);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
+        jTextField1.setText("jTextField1");
+        getContentPane().add(jTextField1, new java.awt.GridBagConstraints());
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
