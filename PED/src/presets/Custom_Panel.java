@@ -6,8 +6,8 @@ package presets;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,22 +15,33 @@ import javax.swing.ImageIcon;
  */
 public class Custom_Panel extends javax.swing.JPanel {
 
-    private final Image backgroundImage;
+    private Image backgroundImage;
 
     /**
      * Creates new form Custom_Panel
      */
-    public Custom_Panel(String imageName) {
+    public Custom_Panel() {
+        
+    }
+    
+    public void showPanel(String imageName){
         initComponents();
         
         // Cargar la imagen de fondo desde el directorio assets
         String url = "src/assets/" + imageName;
+        backgroundImage = new ImageIcon("src/assets/" + imageName).getImage();
         System.out.println("Esta es la dirección de la imagen  : " + url + "/n"
-                + "El file existe o no : " + new File(url).exists() );
-        backgroundImage = new ImageIcon("../assets/" + imageName).getImage();
+                + "El file existe o no : " + backgroundImage.getProperty("key", this));
         
         
+        tf_username.setOpaque(false);
+        tf_username.setBackground(new java.awt.Color(0, 0, 0, 0));
+        tf_password.setOpaque(false);
+        tf_password.setBackground(new java.awt.Color(0, 0, 0, 0));
+        
+        repaint();
     }
+    
     
     @Override
     protected void paintComponent(Graphics g) {
@@ -50,19 +61,57 @@ public class Custom_Panel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tf_username = new javax.swing.JTextField();
+        btn_Login = new javax.swing.JLabel();
+        tf_password = new javax.swing.JPasswordField();
+
+        setMaximumSize(null);
+
+        tf_username.setBackground(new java.awt.Color(255, 255, 255));
+        tf_username.setBorder(null);
+
+        btn_Login.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btn_LoginMouseReleased(evt);
+            }
+        });
+
+        tf_password.setBackground(new java.awt.Color(255, 255, 255));
+        tf_password.setBorder(null);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(344, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tf_password, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_username, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(153, Short.MAX_VALUE)
+                .addComponent(tf_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addComponent(tf_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btn_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_LoginMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LoginMouseReleased
+        JOptionPane.showMessageDialog(this, "Validando el usuario");
+    }//GEN-LAST:event_btn_LoginMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btn_Login;
+    private javax.swing.JPasswordField tf_password;
+    private javax.swing.JTextField tf_username;
     // End of variables declaration//GEN-END:variables
 }

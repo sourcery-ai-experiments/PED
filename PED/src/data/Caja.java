@@ -16,10 +16,10 @@ public class Caja {
             Node current = head;
             Node previous = null;
 
-            while (current != null && current.getData().getPrioridad() >= data.getPrioridad()) {
-                previous = current;
-                current = current.getNext();
-            }
+//            while (current != null && current.getData().getPrioridad() >= data.getPrioridad()) {
+//                previous = current;
+//                current = current.getNext();
+//            }
 
             if (previous == null) {
                 nuevo.setNext(head);

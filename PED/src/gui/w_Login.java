@@ -6,37 +6,39 @@ package gui;
 
 import data.App_Settings;
 import java.awt.GridBagConstraints;
-import presets.Pnl_StatusBar;
 
 /**
- *
  * @author manuel.mora
  */
-public class w_Login extends javax.swing.JFrame {
+public class W_Login extends javax.swing.JFrame {
 
     /**
-     * Creates new form w_Login
+     * Creates new form W_Login
      */
     
     private App_Settings appSettings;
     private GridBagConstraints gbc;
     
-    public w_Login(App_Settings appSettings) {
+    public W_Login(App_Settings appSettings) {
         
         this.appSettings = appSettings;
+        setLocationRelativeTo(null);
         initComponents();
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new w_Login(appSettings).setVisible(true);
+                //new W_Login(appSettings).setVisible(true);
             }
         });
         
         
-        Pnl_StatusBar p_StatusBar = new Pnl_StatusBar(appSettings);
+        pnl_StatusBar.showPanel(appSettings);
+        pnl_Login.showPanel("BG_Login.png");
         
-        
+        repaint();
+        revalidate();
+        setVisible(true);
         
         
     }
@@ -50,20 +52,27 @@ public class w_Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        pnl_StatusBar = new presets.Pnl_StatusBar();
+        pnl_Login = new presets.Custom_Panel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de registro");
-        setMinimumSize(new java.awt.Dimension(300, 400));
+        setMinimumSize(new java.awt.Dimension(600, 400));
         setName("Login"); // NOI18N
-        setUndecorated(true);
-        setResizable(false);
+        setPreferredSize(new java.awt.Dimension(600, 400));
         setSize(new java.awt.Dimension(0, 0));
         setType(java.awt.Window.Type.UTILITY);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jTextField1.setText("jTextField1");
-        getContentPane().add(jTextField1, new java.awt.GridBagConstraints());
+        pnl_StatusBar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnl_StatusBar.setMaximumSize(null);
+        pnl_StatusBar.setMinimumSize(null);
+        pnl_StatusBar.setPreferredSize(new java.awt.Dimension(600, 25));
+        getContentPane().add(pnl_StatusBar, java.awt.BorderLayout.SOUTH);
+
+        pnl_Login.setMaximumSize(null);
+        pnl_Login.setMinimumSize(null);
+        pnl_Login.setPreferredSize(new java.awt.Dimension(600, 375));
+        getContentPane().add(pnl_Login, java.awt.BorderLayout.NORTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -71,6 +80,7 @@ public class w_Login extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField jTextField1;
+    private presets.Custom_Panel pnl_Login;
+    private presets.Pnl_StatusBar pnl_StatusBar;
     // End of variables declaration//GEN-END:variables
 }
