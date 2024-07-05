@@ -5,7 +5,6 @@
 package presets;
 
 import data.App_Settings;
-import data.User;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -16,14 +15,6 @@ import javax.swing.JPanel;
  */
 public class Pnl_StatusBar extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Pnl_StatusBar
-     */
-    
-    QUITAR PARAMETRO DEL CONS, HACER METODO PARA INICIAR EL COMPONENTE
-    
-    
-    private User currentUser;
     private JPanel selfPanel;
     private App_Settings appSettings; 
     
@@ -32,37 +23,41 @@ public class Pnl_StatusBar extends javax.swing.JPanel {
     
     public void showPanel(App_Settings appSettings){
         this.appSettings = appSettings;
+        selfPanel = this;
+        appSettings.getCurrentUser();
+        
         
         initComponents();
-        selfPanel = this;
-        currentUser = appSettings.getCurrentUser();
-        
-        if (currentUser != null) {
-            lb_User.setText(currentUser.getUsername());
-            lb_UserType.setText(currentUser.getUser_type());
+        if (appSettings.getCurrentUser() != null) {
+            lb_User.setText(appSettings.getCurrentUser().getUsername());
+            lb_UserType.setText(appSettings.getCurrentUser().getUser_type());
         }else{
-            lb_User.setText("          ");
-            lb_UserType.setText("          ");
+            //lb_User.setText("          ");
+            //lb_UserType.setText("          ");
         }
-        lb_BankName.setText(appSettings.getCurrentSite());
+        lb_BankName.setText("Cede: " + appSettings.getCurrentSite());
         
-        Thread dateTimeThread = new Thread(new Runnable(){
+        Thread dateTimeThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true) {                    
+                while (true) {
                     lb_Datetime.setText(appSettings.Now());
-                    selfPanel.repaint();
+                    selfPanel.revalidate();
+                    //selfPanel.repaint();
+                    
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Pnl_StatusBar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                
-                
-                
+
             }
         });
+        
+        dateTimeThread.start();
+        
+        setVisible(true);
     }
 
     /**
@@ -73,6 +68,7 @@ public class Pnl_StatusBar extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         lb_BankName = new javax.swing.JLabel();
         sep_1 = new javax.swing.JSeparator();
@@ -83,34 +79,86 @@ public class Pnl_StatusBar extends javax.swing.JPanel {
         lb_Datetime = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        setMaximumSize(new java.awt.Dimension(32767, 100));
-        setMinimumSize(new java.awt.Dimension(0, 100));
-        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
+        setMaximumSize(null);
+        setMinimumSize(null);
+        setPreferredSize(null);
+        setLayout(new java.awt.GridBagLayout());
 
-        lb_BankName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_BankName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lb_BankName.setText("Nombre del banco");
-        add(lb_BankName);
+        lb_BankName.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        lb_BankName.setMaximumSize(null);
+        lb_BankName.setMinimumSize(null);
+        lb_BankName.setPreferredSize(null);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        add(lb_BankName, gridBagConstraints);
 
         sep_1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        add(sep_1);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        add(sep_1, gridBagConstraints);
 
         lb_UserType.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_UserType.setText("Tipo de acceso: ");
-        add(lb_UserType);
+        lb_UserType.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        lb_UserType.setMaximumSize(null);
+        lb_UserType.setMinimumSize(null);
+        lb_UserType.setPreferredSize(null);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        add(lb_UserType, gridBagConstraints);
 
         sep_2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        add(sep_2);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        add(sep_2, gridBagConstraints);
 
         lb_User.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_User.setText("Usuario:  ");
-        add(lb_User);
+        lb_User.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        lb_User.setMaximumSize(null);
+        lb_User.setMinimumSize(null);
+        lb_User.setPreferredSize(null);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        add(lb_User, gridBagConstraints);
 
         sep_3.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        add(sep_3);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        add(sep_3, gridBagConstraints);
 
         lb_Datetime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_Datetime.setText("01/01/2024 00:00:00 AM");
-        add(lb_Datetime);
+        lb_Datetime.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        lb_Datetime.setMaximumSize(null);
+        lb_Datetime.setMinimumSize(null);
+        lb_Datetime.setPreferredSize(null);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        add(lb_Datetime, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
 

@@ -42,7 +42,7 @@ public class App_Settings {
     public String Now(){
         
         // Define el formato de fecha
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
         return "" + dateFormat.format(new Date().getTime());
     }
     
